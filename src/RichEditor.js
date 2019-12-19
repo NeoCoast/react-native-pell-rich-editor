@@ -20,7 +20,8 @@ export default class RichTextEditor extends Component {
 
   static defaultProps = {
     contentInset: {},
-    style: {}
+    style: {},
+    onKeyDown: undefined,
   };
 
   constructor(props) {
@@ -99,7 +100,6 @@ export default class RichTextEditor extends Component {
           }
           break;
         case messages.LOG:
-          console.log("FROM EDIT:", ...message.data);
           break;
         case messages.SELECTION_CHANGE: {
           const items = message.data;
@@ -115,6 +115,10 @@ export default class RichTextEditor extends Component {
         case messages.OFFSET_HEIGHT:
           this.setWebHeight(message.data);
           break;
+        case messages.KEY_DOWN:
+          if (this.props.onKeyDown) {
+            this.props.onKeyDown(message.data);
+          }
       }
     } catch (e) {
       //alert('NON JSON MESSAGE');
