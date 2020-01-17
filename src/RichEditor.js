@@ -22,6 +22,7 @@ export default class RichTextEditor extends Component {
     contentInset: {},
     style: {},
     onKeyDown: undefined,
+    focusOnMount: false,
   };
 
   constructor(props) {
@@ -208,8 +209,8 @@ export default class RichTextEditor extends Component {
     this._sendAction(actions.content, "blur");
   }
 
-  focusContentEditor() {
-    this._sendAction(actions.content, "focus");
+  focusContentEditor(atEnd = false) {
+    this._sendAction(actions.content, atEnd ? "focusEnd" : "focus");
   }
 
   insertImage(attributes) {
@@ -222,6 +223,10 @@ export default class RichTextEditor extends Component {
     that.setContentHTML(this.props.initialContentHTML);
     that.props.editorInitializedCallback &&
       that.props.editorInitializedCallback();
+
+    if (this.props.focusOnMount) {
+      this.focusContentEditor(true);
+    }
 
     this.intervalHeight = setInterval(function() {
       that._sendAction(actions.updateHeight);

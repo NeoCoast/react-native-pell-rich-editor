@@ -1,7 +1,7 @@
 {
   "name": "@neocoast/react-native-pell-rich-editor",
   "description": "React Native Rich Editor - NeoCoast's fork",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "main": "index.js",
   "author": {
     "name": "stulip",

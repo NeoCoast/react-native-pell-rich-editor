@@ -38,6 +38,10 @@ The editor component. Simply place this component in your view hierarchy to rece
 
 	A callback triggered on every keydown on the `RichEditor`.
 
+* `focusOnMount`
+
+	When this prop is `true`, the text editor will be focused (on the end).
+
 
 `RichEditor` also has methods that can be used on its `ref` to  set:
 
@@ -45,12 +49,11 @@ The editor component. Simply place this component in your view hierarchy to rece
 *  `insertImage(url:string) `
 *  `setContentFocusHandler(handler: Function)`
 *  `blurContentEditor()`
-*  `focusContentEditor()`
+*  `focusContentEditor(atEnd: bool = false)`
 
 This method registers a function that will get called whenver the cursor position changes or a change is made to the styling of the editor at the cursor's position., The callback will be called with an array of `actions` that are active at the cusor position, allowing a toolbar to respond to changes.
 
 *  `registerToolbar(listener: Function)`
-
 
 
 ### Example Usage:

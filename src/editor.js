@@ -49,6 +49,24 @@ const HTML = `
             window.ReactNativeWebView.postMessage(JSON.stringify(data));
         };
 
+        var placeCaretAtEnd = function placeCaretAtEnd(el) {
+            el.focus();
+            if (typeof window.getSelection != "undefined"
+                    && typeof document.createRange != "undefined") {
+                var range = document.createRange();
+                range.selectNodeContents(el);
+                range.collapse(false);
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+            } else if (typeof document.body.createTextRange != "undefined") {
+                var textRange = document.body.createTextRange();
+                textRange.moveToElementText(el);
+                textRange.collapse(false);
+                textRange.select();
+            }
+        }
+
         var editor = null, o_height = 0;
 
         var Actions = {
@@ -153,6 +171,9 @@ const HTML = `
                 },
                 focus: function() {
                     editor.content.focus();
+                },
+                focusEnd: function() {
+                    placeCaretAtEnd(editor.content);
                 },
                 postHtml: function (){
                     postAction({type: 'CONTENT_HTML_RESPONSE', data: editor.content.innerHTML});
